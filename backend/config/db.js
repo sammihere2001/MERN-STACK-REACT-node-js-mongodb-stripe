@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
 
 export const connectDB = async () => {
-    await mongoose.connect('mongodb+srv://saimazam126:mynameiskhan@cluster0.axj1m.mongodb.net/').then(()=>console.log("DB Connected"));
-}
+    const uri = process.env.MONGODB_URI;
+    if (!uri) {
+        throw new Error("MONGODB_URI must be configured in the backend environment");
+    }
+    await mongoose.connect(uri);
+    console.log("DB Connected");
+};
